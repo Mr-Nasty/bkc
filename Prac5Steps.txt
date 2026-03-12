@@ -1,0 +1,16 @@
+- Go to Metamask
+- Networks
+- Add a custom network
+
+- Localhost 8545
+- HTTP://127.0.0.1:7545 (URL FROM GANACHE)
+- Chain ID: 1337
+- ETH
+
+- Go to accounts
+- Add wallet
+- Import an account
+- Get private String key from ganache
+
+- Send
+- Address to a ganache wallet
