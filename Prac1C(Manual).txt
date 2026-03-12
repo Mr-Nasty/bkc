@@ -1,0 +1,22 @@
+p=3
+q=11
+n=p*q
+phi = (p-1)*(q-1)
+
+e=7
+d=3
+
+def encrypt(m):
+    return (m**e)%n
+
+def decrypt(c):
+    return (c**d)%n
+
+message = 4
+print("Original message : ", message)
+
+encrypted = encrypt(message)
+print("Encrypted message : ", encrypted)
+
+decrypted = decrypt(encrypted)
+print("Encrypted message : ", decrypted)
