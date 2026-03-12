@@ -1,0 +1,10 @@
+import math
+
+p1 = 91000
+p2 = 89512
+
+FinalChange = ((p2 - p1) / p1) * 100
+logReturn = math.log(p2 / p1)
+
+print(FinalChange)
+print(logReturn)
