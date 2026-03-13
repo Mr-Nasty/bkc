@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+contract Attendance {
+
+    // Stores roll number presence
+    mapping(uint256 => bool) public isPresent;
+
+    // Constructor initializes roll numbers
+    constructor(uint256[] memory rollno) {
+        for (uint256 i = 0; i < rollno.length; i++) {
+            isPresent[rollno[i]] = true;
+        }
+    }
+
+    // Check attendance
+    function attend(uint256 roll) public view returns (bool) {
+        return isPresent[roll];
+    }
+}
