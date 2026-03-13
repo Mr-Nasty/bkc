@@ -1,0 +1,75 @@
+-Open MetaMask.
+-Click 3 lines (top right) → Networks.
+-Click Add Custom Network.
+
+| Field           | Value                                          |
+| --------------- | ---------------------------------------------- |
+| Network Name    | Ganache                                        |
+| RPC URL         | [http://127.0.0.1:7545](http://127.0.0.1:7545) |
+| Chain ID        | 1337                                           |
+| Currency Symbol | ETH                                            |
+(MAKE SURE GANACHE IS RUNNING)
+
+-In MetaMask click Accounts → Add Account.
+-Click Import Account.
+-Go to Ganache.
+-Click the key icon of the first account.
+-Copy the Private Key.
+-Paste it in MetaMask.
+-Click Import.
+
+- Create folder on desktop: blockchain
+- Open VS Code
+- Open this folder
+- Open Terminal.
+
+- npm init -y
+- npm install -g truffle
+- npm install truffle lite-server
+- npx truffle init
+
+- Create file: Add.sol
+
+- // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Add {
+
+    function add(uint a, uint b) public pure returns(uint) {
+        return a + b;
+    }
+
+}
+
+- Inside migrations folder
+- Create file: 1_deploy.js
+
+const Add = artifacts.require("Add");
+
+module.exports = function(deployer) {
+    deployer.deploy(Add);
+};
+
+- Open: truffle-config.js
+- Find network section
+- Uncomment development network:
+
+development: {
+ host: "127.0.0.1",
+ port: 7545,
+ network_id: "*",
+}
+
+- Port 7545 must match Ganache RPC port.
+
+- Change Solidity version
+- Find compiler section and change:
+
+compilers: {
+ solc: {
+  version: "0.8.0"
+ }
+}
+
+- npx truffle compile --all
+- npx truffle migrate --reset
