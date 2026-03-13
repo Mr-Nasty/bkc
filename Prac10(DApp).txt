@@ -1,0 +1,120 @@
+- Open Ganache Desktop App
+- Click Quickstart Ethereum
+- Ganache will:
+Create 10 accounts
+Give 100 ETH test balance
+Start blockchain at:
+http://127.0.0.1:7545
+- Do not close Ganache while running the DApp.
+
+- Open MetaMask → Networks → Add Custom Network
+- Fill:
+Field	Value
+Network Name	Ganache
+RPC URL	http://127.0.0.1:7545
+Chain ID	1337
+Currency	ETH
+
+- Open Ganache
+- Click key icon of first account
+- Copy Private Key
+- Then in MetaMask:
+- Accounts → Import Account
+- Paste private key → Import.
+
+- Go to: https://remix.ethereum.org
+
+- SimpleStorage.sol
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleStorage {
+    string public message;
+
+    function setMessage(string memory _msg) public {
+        message = _msg;
+    }
+}
+
+- Go to Deploy & Run Transactions
+- Set:
+- Environment → Injected Provider – MetaMask
+- MetaMask will ask permission.
+- Click
+- Deploy
+- Confirm transaction in MetaMask.
+- After deployment:
+- Copy the contract address shown in Remix.
+- Example in the assignment file shows an address like: 0xd9145CCE52D386f254917e481eB44e9943F39138
+- Use your own deployed address.
+
+- index.html
+<!DOCTYPE html>
+<html>
+<title>Web3 Message Sender</title>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+</head>
+
+<body>
+
+<input id="msg" placeholder="Enter message">
+<button onclick="send()">Send to Blockchain</button>
+
+<script>
+
+const address = "PASTE_YOUR_CONTRACT_ADDRESS";
+
+const abi = [
+{
+"inputs": [],
+"name": "message",
+"outputs": [
+{
+"internalType": "string",
+"name": "",
+"type": "string"
+}
+],
+"stateMutability": "view",
+"type": "function"
+},
+{
+"inputs": [
+{
+"internalType": "string",
+"name": "_msg",
+"type": "string"
+}
+],
+"name": "setMessage",
+"outputs": [],
+"stateMutability": "nonpayable",
+"type": "function"
+}
+]
+
+let web3 = new Web3(window.ethereum);
+let contract = new web3.eth.Contract(abi, address);
+
+async function send(){
+ let acc = await web3.eth.requestAccounts();
+ let m = document.getElementById("msg").value;
+ await contract.methods.setMessage(m).send({from:acc[0]});
+ alert("Stored on Blockchain");
+}
+
+</script>
+
+</body>
+</html>
+
+- Replace: PASTE_YOUR_CONTRACT_ADDRESS with the address from Remix.
+
+- Enter message in textbox
+- Example: Hello Blockchain
+- Click: Send to Blockchain
+- MetaMask popup appears.
+- Click Confirm
+- Transaction will be executed.
+- Alert appears: Stored on Blockchain
